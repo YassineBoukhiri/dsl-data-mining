@@ -5,12 +5,19 @@ def demo():
         .select() \
             .select("0", 100) \
             .select("1", 200) \
-            .test_size(0.5) \
+            .test_size(0.2) \
             .end() \
         .transform() \
-            .resize(100, 100) \
+            .flatten()\
+            .normalize() \
+            .end() \
+        .create_model() \
+            .ANN() \
+               .dense(512) \
+               .dense(10, "softmax") \
+               .compile() \
+            .end() \
         .build()
-
     print(app)
 
 if __name__ == "__main__":

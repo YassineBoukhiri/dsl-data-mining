@@ -2,12 +2,14 @@ import nbformat as nbf
 
 class App:
 
-    def __init__(self, name, selector):
+    def __init__(self, name, selector, transformer, data_miner):
         self.name = name
         self.selector = selector
+        self.transformer = transformer
+        self.data_miner = data_miner
 
     def __repr__(self):
-        result = "App name : " + self.name + "\n" + self.selector.__repr__()
+        result = "App name : " + self.name + "\n" + self.selector.__repr__() + "\n" + self.transformer.__repr__()
         return result
 
     def generate(self):
@@ -18,6 +20,10 @@ class App:
         nb['cells'] = [nbf.v4.new_markdown_cell(text)]
 
         nb['cells'] += self.selector.get_notebook()
+
+        nb['cells'] += self.transformer.get_notebook()
+
+        nb['cells'] += self.data_miner.get_notebook()
     
         fname = 'test.ipynb'
 

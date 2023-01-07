@@ -1,4 +1,6 @@
 from SelectorBuilder import SelectorBuilder
+from TransformerBuilder import TransformerBuilder
+from DataMinerBuilder import DataMinerBuilder
 from model.App import App
 
 
@@ -11,6 +13,7 @@ class AppBuilder:
         self.name = name
         self.selector = None
         self.transformer = None
+        self.data_miner = None
 
     def select_all(self):
         self.selector = SelectorBuilder().select_all()
@@ -23,10 +26,15 @@ class AppBuilder:
     def transform(self):
         self.transformer = TransformerBuilder(self)
         return self.transformer
+
+    def create_model(self):
+        self.data_miner = DataMinerBuilder(self)
+        return self.data_miner
     
     def build(self):
-        app = App(self.name, self.selector.build())
+        app = App(self.name, self.selector.build(), self.transformer.build(), self.data_miner.build())
         app.generate()
+    
 
     def __repr__(self) -> str:
         return App.__repr__(self)
