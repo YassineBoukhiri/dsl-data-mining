@@ -29,3 +29,10 @@ class Notebookable:
             elif cell.cell_type == CELL_TYPE.MARKDOWN:
                 notebook.append(nbf.v4.new_markdown_cell(cell.content))
         return notebook
+
+    def add_notebook(self, notebook):
+        for cell in notebook:
+            if cell.cell_type == "markdown":
+                self.add_markdown_cell(cell.source)
+            elif cell.cell_type == "code":
+                self.add_code_cell(cell.source)

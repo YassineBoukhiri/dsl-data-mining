@@ -7,6 +7,9 @@ def demo():
             .select("1", 200) \
             .test_size(0.2) \
             .end() \
+        .preprocess() \
+            .fit() \
+            .end() \
         .transform() \
             .flatten()\
             .normalize() \
@@ -14,11 +17,10 @@ def demo():
         .create_model() \
             .ANN() \
                .dense(512) \
-               .dense(10, "softmax") \
+               .dense(2, "softmax") \
                .compile() \
             .end() \
         .build()
-    print(app)
 
 if __name__ == "__main__":
     demo()
