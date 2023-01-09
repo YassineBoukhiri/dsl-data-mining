@@ -2,6 +2,7 @@ from model.Selector import Selector
 from model.Class import Class
 import os
 
+
 class SelectorBuilder:
     """
     Builder for the selector.
@@ -14,6 +15,12 @@ class SelectorBuilder:
         self.select_all_used = False
         self.select_used = False
 
+    def dataset(self, dataset):
+        if self.selector is None:
+            self.selector = Selector()
+        self.selector.set_dataset(dataset)
+        return self
+
     def select_all(self):
         if self.select_all_used:
             raise Exception("You can't use select_all() twice.")
@@ -22,12 +29,13 @@ class SelectorBuilder:
         self.select_all_used = True
         available_classes = self.get_classes()
         if self.selector is None:
-                self.selector = Selector()
+            self.selector = Selector()
         for class_ in available_classes:
-            self.selector.add_class(Class(class_))
+            self.selector.add_class(
+                Class(class_, self.selector.dataset))
         return self
 
-    def select(self, class_, count = None) :
+    def select(self, class_, count=None):
         if self.select_all_used:
             raise Exception("You can't use select() after select_all().")
         self.select_used = True
@@ -36,18 +44,21 @@ class SelectorBuilder:
             raise Exception(f"Class {class_} not found.")
         if self.selector is None:
             self.selector = Selector()
-        self.selector.add_class(Class(class_, count))
+        self.selector.add_class(Class(class_, self.selector.dataset, count))
         return self
 
     def build(self):
         return self.selector
-    
+
     def get_classes(self) -> list:
-        return os.listdir("../input_data")
+        try:
+            return os.listdir(self.selector.dataset)
+        except:
+            raise Exception("Dataset not found.")
 
     def test_size(self, test_size):
         self.selector.set_test_size(test_size)
         return self
-    
+
     def end(self):
         return self.root
