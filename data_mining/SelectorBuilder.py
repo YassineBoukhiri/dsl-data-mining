@@ -59,7 +59,7 @@ class SelectorBuilder:
         except:
             raise Exception("Dataset not found.")
 
-    def test_size(self, test_size):
+    def test_split(self, test_size):
         self.selector.set_test_size(test_size)
         return self
 
