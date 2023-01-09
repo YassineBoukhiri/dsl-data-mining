@@ -4,7 +4,7 @@ from AppBuilder import AppBuilder
 def demo():
     app = AppBuilder("MyApp") \
         .select() \
-        .dataset("../input_data") \
+        .dataset("https://github.com/ABBARNABIL/zip-dataset/raw/main/input_data.zip") \
         .select("0", 100) \
         .select("1", 100) \
         .test_size(0.2) \

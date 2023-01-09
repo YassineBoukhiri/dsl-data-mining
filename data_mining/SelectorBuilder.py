@@ -51,8 +51,11 @@ class SelectorBuilder:
         return self.selector
 
     def get_classes(self) -> list:
+        dataset_dir = "input_data"
         try:
-            return os.listdir(self.selector.dataset)
+            if self.selector is not None:
+                dataset_dir = self.selector.dataset
+            return os.listdir(dataset_dir)
         except:
             raise Exception("Dataset not found.")
 
