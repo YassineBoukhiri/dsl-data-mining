@@ -6,8 +6,8 @@ class ANNBuilder(ClassifierBuilder):
     Builder for the ANNBuilder.
     """
 
-    def __init__(self, root):
-        super().__init__(root)
+    def __init__(self, root, number):
+        super().__init__(root, number)
         self.root = root
     
 
