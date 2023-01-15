@@ -12,7 +12,7 @@ class ConvLayer(Layer):
 
     def __str__(self):
         if self.rank == 0:
-            return "Conv2D(" + str(self.nb_neurons) + (", kernel_size=" + str(self.kernel_size) if self.kernel_size is not None else "") + ", activation=\"" + str(self.activation) + "\", input_shape=(X_train.shape[1],))"
+            return "Conv2D(" + str(self.nb_neurons) + (", kernel_size=" + str(self.kernel_size) if self.kernel_size is not None else "") + ", activation=\"" + str(self.activation) + "\", input_shape=X_train.shape[1:])"
         else:
             return "Conv2D(" + str(self.nb_neurons) + (", kernel_size=" + str(self.kernel_size) if self.kernel_size is not None else "") + ", activation=\"" + str(self.activation) + "\")"
         
