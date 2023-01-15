@@ -24,7 +24,9 @@ class Classifier(Notebookable):
     def train_and_evaluate_model_code(self):
         result = "history = model.fit(X_train, Y_train, epochs=10, batch_size=32)"
         result += "\nscore = model.evaluate(X_test, Y_test)"
+        result += "\nprint(\"Loss : \", score[0])"
         result += "\nprint(\"Accuracy : \", score[1])"
+        result += "\nmodels_metrics[\"" + str(self.rank) +"-"+ str(self.number) + "\"] = [history, score]"
         return result
 
     def plot_accuracy_and_loss_code(self):
@@ -50,7 +52,7 @@ class Classifier(Notebookable):
         self.add_code_cell(self.create_model_code())
         self.add_markdown_cell("Training and evaluating the model")
         self.add_code_cell(self.train_and_evaluate_model_code())
-        self.add_markdown_cell("Plotting the accuracy and loss")
-        self.add_code_cell(self.plot_accuracy_and_loss_code())
+        # self.add_markdown_cell("Plotting the accuracy and loss")
+        # self.add_code_cell(self.plot_accuracy_and_loss_code())
         return super().get_notebook()
         

@@ -16,12 +16,21 @@ def demo():
         .end() \
         .transform() \
             .normalize() \
-            .flatten() \
+            .reshape("?","?","1") \
             .end() \
         .create_model() \
-            .ANN() \
-                .dense() \
-                    .values(32, 64, 128) \
+            .CNN() \
+                .conv(32) \
+                    .kernel_size(3,3) \
+                    .activation("relu") \
+                .max_pooling(2,2) \
+                .conv(48) \
+                    .kernel_size(3,3) \
+                    .activation("relu") \
+                .max_pooling(2,2) \
+                .dropout(0.5) \
+                .flatten() \
+                .dense(128) \
                     .activation("relu") \
                 .dense(4) \
                     .activation("softmax") \
@@ -50,3 +59,13 @@ if __name__ == "__main__":
         .activation("softmax") \
     .compile() \
 .end() \" '''
+
+
+'''.ANN() \
+    .dense() \
+        .values(32, 64, 128) \
+        .activation("relu") \
+    .dense(4) \
+        .activation("softmax") \
+    .compile() \
+.end() \''''
