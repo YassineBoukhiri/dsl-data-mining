@@ -27,10 +27,10 @@ class Transformer(Notebookable):
     def reshape_code(self):
         result = "X_train = X_train.reshape(X_train.shape[0]"
         for i, dim in enumerate(self.dims, start=1):
-            result += ", " + (str(dim) if dim.strip() != "?" else "X_train.shape[" + str(i) + "]")
+            result += ", " + (str(dim) if str(dim).strip() != "?" else "X_train.shape[" + str(i) + "]")
         result += ")\nX_test = X_test.reshape(X_test.shape[0]"
         for i, dim in enumerate(self.dims, start=1):
-            result += ", " + (str(dim) if dim.strip() != "?" else "X_test.shape[" + str(i) + "]")
+            result += ", " + (str(dim) if str(dim).strip() != "?" else "X_test.shape[" + str(i) + "]")
         result += ")\nprint(X_train.shape)\nprint(X_test.shape)"
         return result
 
