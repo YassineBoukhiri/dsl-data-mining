@@ -15,9 +15,9 @@ class App:
 
     def generate(self):
         nb = nbf.v4.new_notebook()
-        text = """\
-        # My first automatic Jupyter Notebook : """ + self.name + """
-        This is an auto-generated notebook."""
+        text = \
+        """# My first automatic Jupyter Notebook : """ + self.name + """\n""" + \
+        """This is an auto-generated notebook."""
         nb['cells'] = [nbf.v4.new_markdown_cell(text)]
 
         nb['cells'] += self.selector.get_notebook()
