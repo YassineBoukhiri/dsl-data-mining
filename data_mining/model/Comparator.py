@@ -1,15 +1,17 @@
 from model.Notebookable import Notebookable
+from model.ComparisonParameter import ComparisonParameter
 
-class Preprocessor(Notebookable):
+class Comparator(Notebookable):
 
-    def __init__(self):
+    def __init__(self, parameters: list[ComparisonParameter] = []):
         super().__init__()
-        self.fitted = False
-        
-    
-    def fit(self):
-        self.fitted = True
-        return self
+        parameters = parameters
+
+    def get_parameter_by_name(self, name: str) -> ComparisonParameter:
+        for parameter in self.parameters:
+            if parameter.name == name:
+                return parameter
+        return None
 
     def get_notebook(self) -> str:
         self.add_markdown_cell("""## Preprocessing of data""")

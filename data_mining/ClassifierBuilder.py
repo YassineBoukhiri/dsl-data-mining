@@ -21,6 +21,29 @@ class ClassifierBuilder:
         self.dropout_used = False    
         self.flatten_used = False
 
+        self.reshaped = False
+        self.dims = None
+        self.flattened = False
+
+    def reshape_data(self, *dims):
+        if len(dims) == 0:
+            raise ValueError("ERROR: The reshape method must have at least one dimension.")
+        if self.reshaped:
+            raise ValueError("ERROR: The reshape method can only be called once.")
+        if self.flattened:
+            raise ValueError("ERROR: The reshape method can't be called after the flatten method.")
+        self.reshaped = True
+        self.dims = dims
+        return self
+    
+    def flatten_data(self):
+        if self.flattened:
+            raise ValueError("ERROR: The flatten method can only be called once.")
+        if self.reshaped:
+            raise ValueError("ERROR: The flatten method can't be called after the reshape method.")
+        self.flattened = True
+        return self
+
     def dense(self, nb_neurons:int = None, activation:str = None):
         self.dense_used = True
         return LayerBuilder(self, self.layers_count).dense(nb_neurons, activation)
@@ -50,7 +73,7 @@ class ClassifierBuilder:
         classifiers = []
         count = 0
         for neural_network in neural_networks:
-            classifier = Classifier(self.rank, count +1)
+            classifier = Classifier(self.rank, count +1, self.reshaped, self.dims, self.flattened)
             for layer in neural_network:
                 classifier.add_layer(layer)
             classifiers.append(classifier)

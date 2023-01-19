@@ -2,6 +2,7 @@ from SelectorBuilder import SelectorBuilder
 from PreprocessorBuilder import PreprocessorBuilder
 from TransformerBuilder import TransformerBuilder
 from DataMinerBuilder import DataMinerBuilder
+from ComparatorBuilder import ComparatorBuilder
 from model.App import App
 
 
@@ -16,10 +17,7 @@ class AppBuilder:
         self.preprocessor = None
         self.transformer = None
         self.data_miner = None
-
-    def select_all(self):
-        self.selector = SelectorBuilder().select_all()
-        return self
+        self.comparator = None
     
     def select(self):
         self.selector = SelectorBuilder(self)
@@ -36,6 +34,10 @@ class AppBuilder:
     def create_model(self):
         self.data_miner = DataMinerBuilder(self)
         return self.data_miner
+
+    def compare(self):
+        self.comparator = ComparatorBuilder(self)
+        return self.comparator
     
     def build(self):
         app = App(self.name, 

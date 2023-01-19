@@ -20,6 +20,7 @@ def demo():
             .end() \
         .create_model() \
             .CNN() \
+                .reshape_data("?", "?", 1) \
                 .conv(32) \
                     .kernel_size(3,3) \
                     .activation("relu") \
@@ -30,12 +31,28 @@ def demo():
                 .max_pooling(2,2) \
                 .flatten() \
                 .dense()\
-                    .values(128, 256) \
+                    .values(128) \
+                    .activation("relu") \
+                .dense(4) \
+                    .activation("stoftmax") \
+                .compile() \
+            .ANN() \
+                .flatten_data() \
+                .dense() \
+                    .values(128) \
                     .activation("relu") \
                 .dense(4) \
                     .activation("softmax") \
                 .compile() \
             .end() \
+        .compare() \
+            .metrics() \
+                .accuracy() \
+                .precision() \
+            .when_accuracy(">", 0.5) \
+                .and_precision(">", 0.5) \
+                .and_loss("<", 0.5) \
+        .deploy_best() \
         .build()
 
 
