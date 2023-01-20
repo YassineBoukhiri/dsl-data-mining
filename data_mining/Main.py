@@ -9,11 +9,11 @@ def demo():
             .select("1", 1000) \
             .select("2", 1000) \
             .select("3", 1000) \
-            .test_size(0.2) \
+            .test_split(0.2) \
             .end() \
         .preprocess() \
-        .fit() \
-        .end() \
+            .fit() \
+            .end() \
         .transform() \
             .normalize() \
             .reshape("?", "?", 1) \
@@ -57,6 +57,8 @@ if __name__ == "__main__":
     demo()
 
 """
+            .dataset("https://github.com/ABBARNABIL/zip-dataset/raw/main/input_data.zip") \
+
         .compare() \
             .metrics() \
                 .accuracy() \

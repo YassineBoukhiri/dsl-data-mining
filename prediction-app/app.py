@@ -1,8 +1,12 @@
 import streamlit as st
 from PIL import Image
 import numpy as np
+import tensorflow.keras as keras
+from tensorflow.keras.models import load_model
+
 
 # Load the pre-trained model
+model = load_model("mnist-model.h5")
 
 # Load the MNIST data
 
@@ -25,5 +29,6 @@ if image_file is not None:
     image = image.reshape(1, 28, 28, 1)
 
     # Make a prediction
+    prediction = model.predict(image)
     # Show the prediction
-    st.success("The predicted digit is: {}".format(0))
+    st.success("The predicted digit is: {}".format(np.argmax(prediction)))
