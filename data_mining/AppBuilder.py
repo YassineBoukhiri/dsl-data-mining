@@ -44,7 +44,8 @@ class AppBuilder:
                     self.selector.build(), 
                     self.preprocessor.build(),
                     self.transformer.build(), 
-                    self.data_miner.build())
+                    self.data_miner.build(),
+                    self.comparator.build())
         app.generate()
         print("INFO: Notebook generated successfully.")
     

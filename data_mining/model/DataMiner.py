@@ -30,7 +30,6 @@ class DataMiner(Notebookable):
             imports += "\nfrom tensorflow.keras.layers import Dropout"
         if self.flatten_used:
             imports += "\nfrom tensorflow.keras.layers import Flatten"
-        imports += "\nimport matplotlib.pyplot as plt"
         return imports
 
     def set_used_parameters(self):
@@ -46,30 +45,6 @@ class DataMiner(Notebookable):
             if classifier.flatten_used:
                 self.flatten_used = True
 
-    def code_plotting_metrics(self):
-        result = "# Plot accuracy in the same graph"
-        result += "\nfor key, value in models_metrics.items():"
-        result +=   "\n\thistory = value[0]"
-        result +=   "\n\tplt.plot(history.history['accuracy'])"
-        result += "\nplt.title('model accuracy')"
-        result += "\nplt.ylabel('accuracy')"
-        result += "\nplt.xlabel('epoch')"
-        result += "\nplt.legend(models_metrics.keys(), loc='upper left')"
-        result += "\nplt.show()"
-
-        result += "\n\n# Plot loss in the same graph"
-        result += "\nfor key, value in models_metrics.items():"
-        result +=   "\n\thistory = value[0]"
-        result +=   "\n\tplt.plot(history.history['loss'])"
-        result += "\nplt.title('model loss')"
-        result += "\nplt.ylabel('loss')"
-        result += "\nplt.xlabel('epoch')"
-        result += "\nplt.legend(models_metrics.keys(), loc='upper left')"
-        result += "\nplt.show()"
-        return result
-
-
-
     def get_notebook(self) -> str:
         self.set_used_parameters()
         self.add_markdown_cell("""## Data Mining""")
@@ -79,8 +54,6 @@ class DataMiner(Notebookable):
         for classifierBuilder in self.classifiers:
             for classifier in classifierBuilder.build():
                 self.add_notebook(classifier.get_notebook())
-        self.add_markdown_cell("""### Plotting the metrics""")
-        self.add_code_cell(self.code_plotting_metrics())
         return super().get_notebook()
         
         

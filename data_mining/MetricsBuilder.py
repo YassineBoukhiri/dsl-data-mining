@@ -1,9 +1,9 @@
 class MetricsBuilder: 
 
-    def __init__(self):
+    def __init__(self, root):
+        self.root = root
         self.metrics = []
         self.all_metrics_ = ["accuracy", "loss"]
-        self.used_metrics = []
         self.accuracy_used = False
         self.loss_used = False
     
@@ -18,3 +18,9 @@ class MetricsBuilder:
             raise ValueError("ERROR: The loss can only be specified once.")
         self.metrics.append("loss")
         return self
+    
+    def end(self):
+        return self.root.end()
+
+    def when(self):
+        return self.root.when()

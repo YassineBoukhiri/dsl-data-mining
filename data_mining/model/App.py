@@ -2,12 +2,13 @@ import nbformat as nbf
 
 class App:
 
-    def __init__(self, name, selector, preprocessor, transformer, data_miner):
+    def __init__(self, name, selector, preprocessor, transformer, data_miner, comparator):
         self.name = name
         self.selector = selector
         self.preprocessor = preprocessor
         self.transformer = transformer
         self.data_miner = data_miner
+        self.comparator = comparator
 
     def __repr__(self):
         result = "App name : " + self.name + "\n" + self.selector.__repr__() + "\n" + self.transformer.__repr__()
@@ -27,6 +28,8 @@ class App:
         nb['cells'] += self.transformer.get_notebook()
 
         nb['cells'] += self.data_miner.get_notebook()
+
+        nb['cells'] += self.comparator.get_notebook()
     
         fname = 'test.ipynb'
 
