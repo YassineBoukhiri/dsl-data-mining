@@ -64,7 +64,7 @@ class Classifier(Notebookable):
         result += "\nscore = model.evaluate(X_test, Y_test)"
         result += "\nprint(\"Loss : \", score[0])"
         result += "\nprint(\"Accuracy : \", score[1])"
-        result += "\nmodels_metrics[\"" + str(self.rank) +"-"+ str(self.number) + "\"] = [history, score]"
+        result += "\nmodels_metrics[\"" + str(self.rank) +"-"+ str(self.number) + "\"] = [history, score, model]"
         result += "\nX_train = X_train_save\nX_test = X_test_save" if self.reshaped or self.flattened else ""
         return result
 

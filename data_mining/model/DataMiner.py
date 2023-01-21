@@ -49,7 +49,7 @@ class DataMiner(Notebookable):
         self.set_used_parameters()
         self.add_markdown_cell("""## Data Mining""")
         self.add_code_cell(self.get_imports_cell())
-        self.add_markdown_cell("""### Keeping track of the metrics""")
+        self.add_markdown_cell("""### Keeping track of the models and the metrics""")
         self.add_code_cell("""models_metrics = dict()""")
         for classifierBuilder in self.classifiers:
             for classifier in classifierBuilder.build():

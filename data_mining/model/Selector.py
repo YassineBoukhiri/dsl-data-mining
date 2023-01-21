@@ -1,11 +1,9 @@
-import urllib3
 from model.Class import Class
 from model.Notebookable import Notebookable
 from model.Cell import CELL_TYPE
 import os
-import pandas as pd
 import urllib
-from io import StringIO, BytesIO, TextIOWrapper
+from io import BytesIO
 from zipfile import ZipFile
 
 
@@ -36,17 +34,16 @@ class Selector(Notebookable):
 
     def set_dataset(self, dataset: str):
         if "http" in dataset:
-            print("Downloading dataset...")
+            print("INFO: Downloading dataset...")
             resp = urllib.request.urlopen(dataset)
             zipfile = ZipFile(BytesIO(resp.read()))
             dataset_dir = zipfile.namelist()[0].split("/")[0]
             if os.path.exists(dataset_dir):
-                print("Dataset already exists.")
+                print("INFO: Dataset already exists.")
                 self.dataset = dataset_dir
-                print(dataset_dir)
                 return
             zipfile.extractall()
-            print("Dataset downloaded.")
+            print("INFO: Dataset downloaded.")
             self.dataset = dataset_dir
         self.dataset = dataset
 

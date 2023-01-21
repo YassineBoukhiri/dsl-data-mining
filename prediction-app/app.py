@@ -1,19 +1,21 @@
 import streamlit as st
 from PIL import Image
 import numpy as np
-import tensorflow.keras as keras
 from tensorflow.keras.models import load_model
+from os import environ as env
 
+from dotenv import load_dotenv
+load_dotenv()
 
 # Load the pre-trained model
-model = load_model("mnist-model.h5")
+model = load_model("model/model.h5")
 
 # Load the MNIST data
 
-st.set_page_config(page_title="MNIST Image Prediction",
+st.set_page_config(page_title="Prediction App",
                    page_icon=":guardsman:", layout="wide")
 
-st.title("MNIST Image Prediction App")
+st.title(env['APP_NAME'])
 
 # Get the image file from the user
 image_file = st.file_uploader("Upload an image file", type=["jpg", "png"])
@@ -26,7 +28,12 @@ if image_file is not None:
     image = image.resize((28, 28))
     image = image.convert("L")
     image = np.array(image)
-    image = image.reshape(1, 28, 28, 1)
+    # Reshaping the image according to model
+    shape = model.layers[0].input_shape
+    if len(shape) == 4:
+        image = image.reshape(1,shape[1],shape[2],shape[3])
+    elif len(shape) == 2:
+        image = image.reshape(1,shape[1])
 
     # Make a prediction
     prediction = model.predict(image)

@@ -3,6 +3,7 @@ from PreprocessorBuilder import PreprocessorBuilder
 from TransformerBuilder import TransformerBuilder
 from DataMinerBuilder import DataMinerBuilder
 from ComparatorBuilder import ComparatorBuilder
+from model.Deployer import Deployer
 from model.App import App
 
 
@@ -18,6 +19,7 @@ class AppBuilder:
         self.transformer = None
         self.data_miner = None
         self.comparator = None
+        self.deployer = None
     
     def select(self):
         self.selector = SelectorBuilder(self)
@@ -38,6 +40,12 @@ class AppBuilder:
     def compare(self):
         self.comparator = ComparatorBuilder(self)
         return self.comparator
+
+    def deploy_best(self, name = None):
+        if name is None:
+            name = self.name
+        self.deployer = Deployer(name)
+        return self
     
     def build(self):
         app = App(self.name, 
@@ -45,7 +53,8 @@ class AppBuilder:
                     self.preprocessor.build(),
                     self.transformer.build(), 
                     self.data_miner.build(),
-                    self.comparator.build())
+                    self.comparator.build(),
+                    self.deployer)
         app.generate()
         print("INFO: Notebook generated successfully.")
     

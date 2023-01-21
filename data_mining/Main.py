@@ -1,10 +1,8 @@
 from AppBuilder import AppBuilder
 
-
-def demo():
-    app = AppBuilder("MyApp") \
+AppBuilder("MyApp") \
         .select() \
-            .dataset("https://github.com/ABBARNABIL/zip-dataset/raw/main/input_data.zip") \
+            .acquire_data("https://github.com/ABBARNABIL/zip-dataset/raw/main/input_data.zip") \
             .select("0", 1000) \
             .select("1", 1000) \
             .select("2", 1000) \
@@ -46,25 +44,10 @@ def demo():
                 .compile() \
             .end() \
         .compare() \
-            .metrics() \
-                .loss() \
+            .all_metrics() \
             .when() \
-                .accuracy(">  ", 0.5) \
+                .accuracy(">=", 0.5) \
+                .loss("<=", 0.5) \
             .end() \
+        .deploy_best("My Prediction App") \
         .build()
-
-if __name__ == "__main__":
-    demo()
-
-"""
-            .dataset("https://github.com/ABBARNABIL/zip-dataset/raw/main/input_data.zip") \
-
-        .compare() \
-            .metrics() \
-                .accuracy() \
-                .precision() \
-            .when_accuracy(">", 0.5) \
-                .and_precision(">", 0.5) \
-                .and_loss("<", 0.5) \
-        .deploy_best() \
-"""

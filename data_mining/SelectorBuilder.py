@@ -15,7 +15,7 @@ class SelectorBuilder:
         self.select_all_used = False
         self.select_used = False
 
-    def dataset(self, dataset):
+    def acquire_data(self, dataset):
         if self.selector is None:
             self.selector = Selector()
         self.selector.set_dataset(dataset)
