@@ -49,7 +49,7 @@ class Selector(Notebookable):
 
     def get_notebook(self) -> str:
         self.add_cell(CELL_TYPE.MARKDOWN,
-                      """## Selection of data\nclasses selected: \n""" + str(self.classes))
+                      """## Selection of data""")
         self.add_cell(
             CELL_TYPE.CODE, """import os\nimport numpy as np\nfrom PIL import Image""")
         code = "X = []\nY = []\n"\
@@ -65,8 +65,8 @@ class Selector(Notebookable):
             + "\t\tcount += 1\n"\
             + "X=np.array(X)\n"\
             + "Y=np.array(Y)\n"\
-            + "print(X.shape)\n"\
-            + "print(Y.shape)"
+            + "print(\"X shape :\",X.shape)\n"\
+            + "print(\"Y shape :\",Y.shape)"
         self.add_cell(CELL_TYPE.CODE, code)
         self.add_cell(CELL_TYPE.CODE, """from sklearn.model_selection import train_test_split\nX_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=""" + str(self.test_size) + """)""")
         return super().get_notebook()

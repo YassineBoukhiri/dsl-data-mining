@@ -31,7 +31,7 @@ class Transformer(Notebookable):
         result += ")\nX_test = X_test.reshape(X_test.shape[0]"
         for i, dim in enumerate(self.dims, start=1):
             result += ", " + (str(dim) if str(dim).strip() != "?" else "X_test.shape[" + str(i) + "]")
-        result += ")\nprint(X_train.shape)\nprint(X_test.shape)"
+        result += ")\nprint(\"X train shape :\",X_train.shape)\nprint(\"X train shape :\",X_test.shape)"
         return result
 
 
@@ -39,10 +39,10 @@ class Transformer(Notebookable):
         self.add_markdown_cell("""## Transformation of data""")
         if self.flattened:
             self.add_markdown_cell("""### Flattening of data""")
-            self.add_code_cell("""X_train = X_train.reshape(X_train.shape[0], -1)\nX_test = X_test.reshape(X_test.shape[0], -1)\nprint(X_train.shape)\nprint(X_test.shape)""")
+            self.add_code_cell("""X_train = X_train.reshape(X_train.shape[0], -1)\nX_test = X_test.reshape(X_test.shape[0], -1)\nprint(\"X train shape :\",X_train.shape)\nprint(\"X test shape :\",X_test.shape)""")
         if self.normalized:
             self.add_markdown_cell("""### Normalization of data""")
-            self.add_code_cell("""# Making sure that the values are float so that we can get decimal points after division\nX_train = X_train.astype('float32')\nX_test = X_test.astype('float32')\n# Normalizing the RGB codes by dividing it to the max RGB value.\nX_train = X_train / 255\nX_test = X_test / 255\nprint(X_train.shape)\nprint(X_test.shape)""")
+            self.add_code_cell("""# Making sure that the values are float so that we can get decimal points after division\nX_train = X_train.astype('float32')\nX_test = X_test.astype('float32')\n# Normalizing the RGB codes by dividing it to the max RGB value.\nX_train = X_train / 255\nX_test = X_test / 255\nprint(\"X train shape :\",X_train.shape)\nprint(\"X test shape :\",X_test.shape)""")
         if self.reshaped:
             self.add_markdown_cell("""### Reshaping of data""")
             self.add_code_cell(self.reshape_code())

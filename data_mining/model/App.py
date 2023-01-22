@@ -1,4 +1,5 @@
 import nbformat as nbf
+import datetime
 
 class App:
 
@@ -18,8 +19,8 @@ class App:
     def generate(self):
         nb = nbf.v4.new_notebook()
         text = \
-        """# My first automatic Jupyter Notebook : """ + self.name + """\n""" + \
-        """This is an auto-generated notebook."""
+        """# Automatic Jupyter Notebook : """ + self.name + """\n""" + \
+        """This is an auto-generated notebook generated using the classifAI DSL on : """ + datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") 
         nb['cells'] = [nbf.v4.new_markdown_cell(text)]
 
         nb['cells'] += self.selector.get_notebook()

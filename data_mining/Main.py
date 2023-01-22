@@ -45,9 +45,6 @@ AppBuilder("MyApp") \
             .end() \
         .compare() \
             .all_metrics() \
-            .when() \
-                .accuracy(">=", 0.5) \
-                .loss("<=", 0.5) \
             .end() \
         .deploy_best("My Prediction App") \
         .build()

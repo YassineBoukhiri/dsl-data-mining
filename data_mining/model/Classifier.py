@@ -43,11 +43,11 @@ class Classifier(Notebookable):
         result += ")\nX_test = X_test.reshape(X_test.shape[0]"
         for i, dim in enumerate(self.dims, start=1):
             result += ", " + (str(dim) if str(dim).strip() != "?" else "X_test.shape[" + str(i) + "]")
-        result += ")\nprint(X_train.shape)\nprint(X_test.shape)"
+        result += ")\nprint(\"X train shape :\",X_train.shape)\nprint(\"X test shape :\",X_test.shape)"
         return result
 
     def flatten_code(self):
-        result = "X_train_save = X_train\nX_test_save = X_test\nX_train = X_train.reshape(X_train.shape[0], -1)\nX_test = X_test.reshape(X_test.shape[0], -1)\nprint(X_train.shape)\nprint(X_test.shape)"
+        result = "X_train_save = X_train\nX_test_save = X_test\nX_train = X_train.reshape(X_train.shape[0], -1)\nX_test = X_test.reshape(X_test.shape[0], -1)\nprint(\"X train shape :\",X_train.shape)\nprint(\"X test shape :\",X_test.shape)"
         return result
         
 
