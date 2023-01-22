@@ -27,7 +27,7 @@ class SelectorBuilder:
             self.selector.add_class(Class(class_))
         return self
 
-    def select(self, class_, count = None) :
+    def select(self, class_, count = None):
         if self.select_all_used:
             raise Exception("You can't use select() after select_all().")
         self.select_used = True
