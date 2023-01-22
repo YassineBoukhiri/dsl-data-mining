@@ -14,7 +14,6 @@ AppBuilder("Scenario 2") \
             .end() \
         .create_model() \
             .CNN() \
-                .reshape_data("?", "?", 1) \
                 .conv(32) \
                     .kernel_size(3,3) \
                     .activation("relu | sigmoid") \
@@ -26,8 +25,8 @@ AppBuilder("Scenario 2") \
                 .dense()\
                     .values(128) \
                     .activation("relu | sigmoid") \
-                .dense(5) \
-                    .activation("stoftmax") \
+                .dense(10) \
+                    .activation("softmax") \
                 .compile() \
             .end() \
         .compare() \

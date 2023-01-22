@@ -5,7 +5,7 @@ class ConvLayer(Layer):
         super().__init__(rank)
         self.nb_neurons = nb_neurons
         self.activation = activation if activation is not None else "relu"
-        self.kernel_size = kernel_size
+        self.kernel_size = kernel_size if kernel_size is not None else (3,3)
 
     def set_kernel_size(self, kernel_size):
         self.kernel_size = kernel_size

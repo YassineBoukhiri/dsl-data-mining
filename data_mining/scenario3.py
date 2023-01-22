@@ -3,7 +3,10 @@ from AppBuilder import AppBuilder
 AppBuilder("Scenario3") \
         .select() \
             .acquire_data("https://github.com/ABBARNABIL/zip-dataset/raw/main/input_data.zip") \
-            .all_classes() \
+            .class_("0", 1000) \
+            .class_("1", 1000) \
+            .class_("2", 1000) \
+            .class_("3", 1000) \
             .test_split(0.2) \
             .end() \
         .preprocess() \
@@ -29,14 +32,14 @@ AppBuilder("Scenario3") \
                     .values(128) \
                     .activation("relu | sigmoid | softmax") \
                 .dense(10) \
-                    .activation("stoftmax") \
+                    .activation("softmax") \
                 .compile() \
             .ANN() \
                 .flatten_data() \
                 .dense() \
                     .values(128) \
                     .activation("relu | sigmoid | softmax") \
-                .dense(10) \
+                .dense(4) \
                     .activation("softmax") \
                 .compile() \
             .end() \
