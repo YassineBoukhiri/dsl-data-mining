@@ -18,8 +18,8 @@ AppBuilder("Scenario 2") \
                 .conv(32) \
                     .kernel_size(3,3) \
                     .activation("relu | sigmoid") \
+                .max_pooling(2,2) \
                 .conv(48) \
-                    .kernel_size(3,3) \
                     .activation("relu | sigmoid") \
                 .max_pooling(2,2) \
                 .flatten() \
@@ -31,10 +31,10 @@ AppBuilder("Scenario 2") \
                 .compile() \
             .end() \
         .compare() \
-            .metrics() \
-                .accuracy() \
+            .all_metrics() \
             .when() \
                 .accuracy(">=", 0.5) \
+                .loss("<=", 0.5) \
             .end() \
         .deploy_best("My Prediction App Scenario2") \
         .build()

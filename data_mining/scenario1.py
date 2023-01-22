@@ -3,10 +3,10 @@ from AppBuilder import AppBuilder
 AppBuilder("Scenario1") \
         .select() \
             .acquire_data("https://github.com/ABBARNABIL/zip-dataset/raw/main/input_data.zip") \
-            .select("0", 1000) \
-            .select("1", 1000) \
-            .select("2", 1000) \
-            .select("3", 1000) \
+            .class_("0", 1000) \
+            .class_("1", 1000) \
+            .class_("2", 1000) \
+            .class_("3", 1000) \
             .test_split(0.2) \
             .end() \
         .preprocess() \
