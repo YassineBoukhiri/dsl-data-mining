@@ -21,11 +21,11 @@ class SelectorBuilder:
         self.selector.set_dataset(dataset)
         return self
 
-    def select_all(self):
+    def all_classes(self):
         if self.select_all_used:
-            raise Exception("You can't use select_all() twice.")
+            raise Exception("You can't use all_classes() twice.")
         if self.select_used:
-            raise Exception("You can't use select_all() after select().")
+            raise Exception("You can't use all_classes() after class_().")
         self.select_all_used = True
         available_classes = self.get_classes()
         if self.selector is None:
@@ -35,9 +35,9 @@ class SelectorBuilder:
                 Class(class_, self.selector.dataset))
         return self
 
-    def select(self, class_, count=None):
+    def class_(self, class_, count=None):
         if self.select_all_used:
-            raise Exception("You can't use select() after select_all().")
+            raise Exception("You can't use class_() after all_classes().")
         self.select_used = True
         available_classes = self.get_classes()
         if class_ not in available_classes:
